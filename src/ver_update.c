@@ -36,27 +36,27 @@ int download_file(const char *url, const char *save_file)
     BOOL internetreadfile;
     int ret = -1;
 
-dbg_print("==");
+    dbg_print("==");
     internetopen=InternetOpen("Testing",INTERNET_OPEN_TYPE_PRECONFIG,NULL,NULL,0);
     if (internetopen==NULL){
         //err_msg_box("Internet open failed!");
         goto err_exit;
     }
 
-dbg_print("=%s", url);
+    dbg_print("=%s", url);
     internetopenurl=InternetOpenUrl(internetopen,url,NULL,0,INTERNET_FLAG_RELOAD,0);
     if (internetopenurl==NULL){
        //err_msg_box("Internet open url failed!");
        goto err_exit;
     }
- dbg_print("==");
+    dbg_print("==");
     fp=fopen(save_file, "wb");
     if (fp==NULL){
        //err_msg_box("Create File failed!");
        goto err_exit;
     }
 
-dbg_print("==");
+    dbg_print("==");
     while(1){
        internetreadfile=InternetReadFile(internetopenurl,buffer,sizeof(buffer),&byteread);
        if(byteread==0)    break;
@@ -70,12 +70,11 @@ dbg_print("==");
     fflush(fp);
     ret = 0;
 
-dbg_print("==");
+    dbg_print("==");
 err_exit:
    if (internetopenurl) InternetCloseHandle(internetopenurl);
    if (internetopen) InternetCloseHandle(internetopen);
    if (fp) fclose(fp);
-
 
    return ret;
 }
@@ -89,18 +88,14 @@ int get_date_str(char *dst, int size)
     return len;
 }
 
-
-    static  int fix_width;
-    static  int fix_height;
-
+static  int fix_width;
+static  int fix_height;
 
 #define    COL_NUM    (18)
 #define    LINE_NUM    (7)
 #define    CLOSE_BUTTOM_SIZE    (25)
 
-
 static RECT rt_desktop;
-
 
 LRESULT CALLBACK ver_update_WndProc (HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
@@ -112,9 +107,7 @@ LRESULT CALLBACK ver_update_WndProc (HWND hwnd, UINT message, WPARAM wParam, LPA
     static int timer_msg_cnt_1, timer_msg_cnt_2;
     static int hieght, life;
     static TRACKMOUSEEVENT tme;
-    TCHAR  info[64];
-    
-    
+    TCHAR  info[64];    
 
     switch (message)
     {
@@ -127,17 +120,17 @@ LRESULT CALLBACK ver_update_WndProc (HWND hwnd, UINT message, WPARAM wParam, LPA
                           fix_width, fix_height, TRUE) ;
 
             CreateWindow ( TEXT("button"),TEXT("X"),
-   WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON,
-    fix_width-CLOSE_BUTTOM_SIZE, 0, CLOSE_BUTTOM_SIZE, CLOSE_BUTTOM_SIZE,
-    hwnd, (HMENU)ID_VER_UPDATE_CLOSE_BUTTON,
-               g_hInstance, NULL) ;
+                WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON,
+                    fix_width-CLOSE_BUTTOM_SIZE, 0, CLOSE_BUTTOM_SIZE, CLOSE_BUTTOM_SIZE,
+                    hwnd, (HMENU)ID_VER_UPDATE_CLOSE_BUTTON,
+                            g_hInstance, NULL) ;
 
 
             CreateWindow ( TEXT("button"),TEXT("no reminder anymore"),
-   WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON,
-    (fix_width-12*cxChar_2)/2, fix_height - cyChar_2*3/2, cxChar_2*12, cyChar_2*3/2,
-    hwnd, (HMENU)ID_VER_UPDATE_NONEED_NOTICE,
-               g_hInstance, NULL) ;
+                WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON,
+                    (fix_width-12*cxChar_2)/2, fix_height - cyChar_2*3/2, cxChar_2*12, cyChar_2*3/2,
+                    hwnd, (HMENU)ID_VER_UPDATE_NONEED_NOTICE,
+                            g_hInstance, NULL) ;
 
 
              hieght = 0;
@@ -170,7 +163,6 @@ LRESULT CALLBACK ver_update_WndProc (HWND hwnd, UINT message, WPARAM wParam, LPA
                     return 0;
                 }
 
-
                 hieght += fix_height/(1000/TIMER_VER_UPDATE_1_GAP);
 
 
@@ -200,14 +192,9 @@ LRESULT CALLBACK ver_update_WndProc (HWND hwnd, UINT message, WPARAM wParam, LPA
                     PostMessage(hwnd, WM_COMMAND, ID_VER_UPDATE_CLOSE_BUTTON, 0);
                 }
 
-
                 return 0;
             }
-
-
             return 0;
-
-
         }
 
 
@@ -218,7 +205,6 @@ LRESULT CALLBACK ver_update_WndProc (HWND hwnd, UINT message, WPARAM wParam, LPA
 
         case   WM_MOUSEMOVE:
             TrackMouseEvent(&tme);
-        //dbg_print("===");
             return 0;
 
 
@@ -263,13 +249,11 @@ LRESULT CALLBACK ver_update_WndProc (HWND hwnd, UINT message, WPARAM wParam, LPA
             hdc = BeginPaint (hwnd, &ps) ;
 
             SetRect(&rect, 0, 0,
-          fix_width - CLOSE_BUTTOM_SIZE, CLOSE_BUTTOM_SIZE) ;
-        //hBrush = CreateSolidBrush (RGB (rand () % 256, rand () % 256, rand () % 256));
-        hBrush = CreateSolidBrush (RGB (0, 0, 255));
+            fix_width - CLOSE_BUTTOM_SIZE, CLOSE_BUTTOM_SIZE) ;
+            hBrush = CreateSolidBrush (RGB (0, 0, 255));
 
-
-   FillRect(hdc, &rect, hBrush);
-      DeleteObject (hBrush) ;
+            FillRect(hdc, &rect, hBrush);
+            DeleteObject (hBrush) ;
 
             SetBkMode(hdc, TRANSPARENT);
 
@@ -315,9 +299,6 @@ LRESULT CALLBACK ver_update_WndProc (HWND hwnd, UINT message, WPARAM wParam, LPA
     return DefWindowProc (hwnd, message, wParam, lParam) ;
 }
 
-
-
-
 int register_ver_update_win()
 {
     WNDCLASS    sub_wndclass;
@@ -332,9 +313,6 @@ int register_ver_update_win()
     sub_wndclass.lpszMenuName   = NULL;
     sub_wndclass.lpszClassName  = "ver_update";
 
-
-
-
     if (!RegisterClass (&sub_wndclass))
      {
         MessageBox (NULL, TEXT ("Program requires Windows NT!"),
@@ -344,8 +322,6 @@ int register_ver_update_win()
 
 
     return SUCCESS;
-
-
 }
 
 int  get_data_from_file(char *buf, const char *file, int len)
@@ -439,8 +415,8 @@ int  should_notice(const char *new_version)
         memcmp(new_version,last_version, 3)==0)
         return 0;
 
-WritePrivateProfileString("last_notice", "version", new_version, VER_UPDATE_NOTICE_RCD);
-WritePrivateProfileString("last_notice", "date", cur_date, VER_UPDATE_NOTICE_RCD);
+    WritePrivateProfileString("last_notice", "version", new_version, VER_UPDATE_NOTICE_RCD);
+    WritePrivateProfileString("last_notice", "date", cur_date, VER_UPDATE_NOTICE_RCD);
     return 1;
 }
 
@@ -467,8 +443,7 @@ DWORD WINAPI  ver_update(LPVOID lpParameter)
     if (ver_update_running)  return 0;
     
     ver_update_running = 1;
-    //Sleep(5000);
-
+ 
     if (memcmp(new_version_notice, "no", 2)==0) goto exit;
     if (today_have_noticed())  goto exit;
     if (get_latest_version())  goto exit;
@@ -484,28 +459,14 @@ DWORD WINAPI  ver_update(LPVOID lpParameter)
    ShowWindow(hWnd, SW_SHOWNOACTIVATE);
    UpdateWindow(hWnd);
  
-
-
    // Main message loop:
-
-
    while (GetMessage(&msg, NULL, 0, 0))
-
-
    {
       if (!TranslateAccelerator(msg.hwnd, NULL, &msg))
-
-
       {
-
-
          TranslateMessage(&msg);
-
-
          DispatchMessage(&msg);
       }
-
-
    }
 
 exit:

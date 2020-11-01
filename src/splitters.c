@@ -11,6 +11,7 @@
 #include "common.h"
 #include "global_info.h"
 #include "res.h"
+#include "debug.h"
 
 TCHAR szSpltWeClassName[] = TEXT ("SpltWe") ;
 TCHAR szSpltNsClassName[] = TEXT ("SpltNs") ;
@@ -343,6 +344,7 @@ int register_splt_wins()
      {
         MessageBox (NULL, TEXT ("Program requires Windows NT!"),
           szAppName, MB_ICONERROR) ;
+          dbg_print("RegisterClass: %d", GetLastError());
         return FAIL;
      }
 
@@ -359,8 +361,11 @@ int register_splt_wins()
 
     if (!RegisterClass (&sub_wndclass))
      {
+         int retcode = GetLastError();
+        dbg_print("RegisterClass: %d", retcode);
         MessageBox (NULL, TEXT ("Program requires Windows NT!"),
           szAppName, MB_ICONERROR) ;
+          
         return FAIL;
      }
 
