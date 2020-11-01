@@ -19,15 +19,10 @@ HWND    hwnd_net_card_comb;
 HWND    hwnd_net_card_text;
 HWND    hwnd_capture_checkbox;
 HWND    hwnd_statusbar;
-int statusbar_height;
+int     statusbar_height;
 
 TBBUTTON at_button[] =                
     {
-        {I_IMAGENONE , -1, TBSTATE_ENABLED, TBSTYLE_SEP|TBSTYLE_AUTOSIZE},
-        {I_IMAGENONE , -1, TBSTATE_ENABLED, TBSTYLE_SEP|TBSTYLE_AUTOSIZE},
-        {I_IMAGENONE , -1, TBSTATE_ENABLED, TBSTYLE_SEP|TBSTYLE_AUTOSIZE},
-        {I_IMAGENONE , -1, TBSTATE_ENABLED, TBSTYLE_SEP|TBSTYLE_AUTOSIZE},
-        {I_IMAGENONE , -1, TBSTATE_ENABLED, TBSTYLE_SEP|TBSTYLE_AUTOSIZE},
         {0, IDT_TOOLBAR_STOP, TBSTATE_ENABLED, TBSTYLE_AUTOSIZE , {0}, 0, (INT_PTR)"stop TX"},
         {1, IDT_TOOLBAR_START, TBSTATE_ENABLED, TBSTYLE_AUTOSIZE , {0}, 0, (INT_PTR)"start TX"},
         {I_IMAGENONE , -1, TBSTATE_ENABLED, TBSTYLE_SEP|TBSTYLE_AUTOSIZE},
@@ -36,6 +31,11 @@ TBBUTTON at_button[] =
 
         {I_IMAGENONE , -1, TBSTATE_ENABLED, TBSTYLE_SEP|TBSTYLE_AUTOSIZE},
         {4, IDT_TOOLBAR_CAPTURE, TBSTATE_ENABLED, TBSTYLE_AUTOSIZE , {0}, 0, (INT_PTR)"separately capture packets" },
+        {I_IMAGENONE , -1, TBSTATE_ENABLED, TBSTYLE_SEP|TBSTYLE_AUTOSIZE},
+        {I_IMAGENONE , -1, TBSTATE_ENABLED, TBSTYLE_SEP|TBSTYLE_AUTOSIZE},
+        {I_IMAGENONE , -1, TBSTATE_ENABLED, TBSTYLE_SEP|TBSTYLE_AUTOSIZE},
+        {I_IMAGENONE , -1, TBSTATE_ENABLED, TBSTYLE_SEP|TBSTYLE_AUTOSIZE},
+        {I_IMAGENONE , -1, TBSTATE_ENABLED, TBSTYLE_SEP|TBSTYLE_AUTOSIZE},
     };
 
 HBITMAP hbmpToolbar[3];
@@ -56,23 +56,12 @@ LRESULT CALLBACK my_tb_proc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPara
     SendMessage(hwnd_toolbar,TB_GETITEMRECT,(WPARAM)ARRAY_SIZE(at_button)-1,(LPARAM)&rc);
     button_width = rc.right-rc.left;
     button_height = rc.bottom-rc.top;
-#if 1
+
     MoveWindow	(hwnd_net_card_text
         ,cxClient - cxChar_2*40, rc.top, cxChar_2*10, button_height, TRUE) ;
 
     MoveWindow	(hwnd_net_card_comb, cxClient - cxChar_2*30, rc.top, cxChar_2*30, 250, TRUE) ;
-#else
-    rc.left += 8*button_width;
 
-    MoveWindow	(hwnd_net_card_text
-        ,rc.left, rc.top, 3*button_width, button_height, TRUE) ;
-
-    rc.left+=3*button_width;
-
-    MoveWindow	(hwnd_net_card_comb, rc.left, rc.top,
-                cxClient - rc.left, 250, TRUE) ;
-
-#endif
 
         case 	WM_COMMAND:
             if (HIWORD(wParam)==CBN_SELCHANGE)
@@ -82,17 +71,6 @@ LRESULT CALLBACK my_tb_proc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPara
                	break ;
             }
             break;
-
-#if 0
-        case 	WM_COMMAND:
-            switch (LOWORD(wParam))
-            {
-                case    IDT_CAPTURE_CHECKBOX:
-                need_capture=SendMessage(hwnd_capture_checkbox, BM_GETCHECK, 0, 0);
-               	break ;
-            }
-            break;
-#endif
  	}
 
     return CallWindowProc (old_tb_proc, hwnd, message, wParam,lParam) ;
@@ -100,48 +78,24 @@ LRESULT CALLBACK my_tb_proc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPara
 
 int CreateToolbar()
 {
-#if 1
-HIMAGELIST h0, h1;
-HICON hiconItem; 
+    HIMAGELIST h0, h1;
+    HICON hiconItem; 
+    RECT rc; 
 
-//创建工具栏
-    hwnd_toolbar = CreateWindowEx(0, TOOLBARCLASSNAME, NULL
-    , WS_CHILD | WS_VISIBLE | WS_BORDER |  TBSTYLE_TOOLTIPS | TBSTYLE_LIST  
-    , 0, 0, 0, 0,
-        hwnd_frame, (HMENU)NULL, g_hInstance, NULL);
+    hwnd_toolbar = CreateWindowEx(0, TOOLBARCLASSNAME, NULL, 
+                    WS_CHILD | WS_VISIBLE | WS_BORDER |  TBSTYLE_TOOLTIPS | TBSTYLE_LIST  
+                    , 0, 0, 0, 0, hwnd_frame, (HMENU)NULL, g_hInstance, NULL);
     SendMessage(hwnd_toolbar, TB_SETEXTENDEDSTYLE, 0,  TBSTYLE_EX_MIXEDBUTTONS );
 
     if(hwnd_toolbar == NULL)
     {
-        MessageBox (NULL, TEXT ("CreateToolbar failed!"),
-          szAppName, MB_ICONERROR) ;
+        MessageBox (NULL, TEXT ("CreateToolbar failed!"), szAppName, MB_ICONERROR);
+          
         return FAIL;
      }
 
-#if 0
-hbmpToolbar[0] = LoadImage(g_hInstance, TEXT("ToolbarNormal"), IMAGE_BITMAP,0,0,0);
-hbmpToolbar[1] = LoadImage(g_hInstance, TEXT("ToolbarHover"), IMAGE_BITMAP,0,0,0);
-hbmpToolbar[2] = LoadImage(g_hInstance, TEXT("ToolbarDisable"),IMAGE_BITMAP,0,0,0);
 
-GetObject(hbmpToolbar[0],sizeof(BMPInfo),&BMPInfo);
-h0 = ImageList_Create(BMPInfo.bmWidth/ARRAY_SIZE(at_button),BMPInfo.bmHeight,ILC_COLORDDB,3,1);
-ImageList_Add(h0,hbmpToolbar[0],NULL);
-SendMessage(hwnd_toolbar,TB_SETIMAGELIST,0,(LPARAM)h0);
-DeleteObject(h0);
-
-GetObject(hbmpToolbar[1],sizeof(BMPInfo),&BMPInfo);
-h0= ImageList_Create(BMPInfo.bmWidth/ARRAY_SIZE(at_button),BMPInfo.bmHeight,ILC_COLORDDB,3,1);
-ImageList_Add(h0,hbmpToolbar[1],NULL);
-SendMessage(hwnd_toolbar,TB_SETHOTIMAGELIST,0,(LPARAM)h0);
-DeleteObject(h0);
-
-GetObject(hbmpToolbar[2],sizeof(BMPInfo),&BMPInfo);
-h0= ImageList_Create(BMPInfo.bmWidth/ARRAY_SIZE(at_button),BMPInfo.bmHeight,ILC_COLORDDB,3,1);
-ImageList_Add(h0,hbmpToolbar[2],NULL);
-SendMessage(hwnd_toolbar,TB_SETDISABLEDIMAGELIST,0,(LPARAM)h0);
-DeleteObject(h0);
-#else
-h0 = ImageList_Create(32,32,ILC_MASK|ILC_COLORDDB,4,0);
+    h0 = ImageList_Create(32,32,ILC_MASK|ILC_COLORDDB,4,0);
     hiconItem = LoadIcon(g_hInstance, TEXT("icon_stop"));
     ImageList_AddIcon(h0, hiconItem);
     DestroyIcon(hiconItem);
@@ -187,31 +141,19 @@ h0 = ImageList_Create(32,32,ILC_MASK|ILC_COLORDDB,4,0);
     DestroyIcon(hiconItem);
 
     SendMessage(hwnd_toolbar,TB_SETDISABLEDIMAGELIST,0,(LPARAM)h1);
-#endif
 
-//将按钮与工具栏关联
-SendMessage(hwnd_toolbar, TB_BUTTONSTRUCTSIZE, (WPARAM)sizeof(TBBUTTON), 0);
-SendMessage(hwnd_toolbar, TB_ADDBUTTONS, ARRAY_SIZE(at_button), (LPARAM)at_button);
-SendMessage(hwnd_toolbar,TB_SETMAXTEXTROWS, 0, 0);
+
+    //将按钮与工具栏关联
+    SendMessage(hwnd_toolbar, TB_BUTTONSTRUCTSIZE, (WPARAM)sizeof(TBBUTTON), 0);
+    SendMessage(hwnd_toolbar, TB_ADDBUTTONS, ARRAY_SIZE(at_button), (LPARAM)at_button);
+    SendMessage(hwnd_toolbar, TB_SETMAXTEXTROWS, 0, 0);
     // Resize the toolbar, and then show it.
     SendMessage(hwnd_toolbar, TB_AUTOSIZE, 0, 0); 
     ShowWindow(hwnd_toolbar,  TRUE);
     toolbar_height = win_height(hwnd_toolbar);
 
-    
-
-#endif
-    {
-    RECT rc; 
-#if 0
-    SendMessage(hwnd_toolbar,TB_GETITEMRECT,(WPARAM)2,(LPARAM)&rc); 
-hwnd_capture_checkbox=CreateWindowEx(0, TEXT("button"), TEXT("灌包时同步抓包")
-        , WS_CHILD | WS_VISIBLE|BS_AUTOCHECKBOX
-        , rc.left+8, rc.top, 5*(rc.right-rc.left), rc.bottom-rc.top,
-            hwnd_toolbar, (HMENU)IDT_CAPTURE_CHECKBOX, g_hInstance, NULL);
-#endif
     SendMessage(hwnd_toolbar,TB_GETITEMRECT,(WPARAM)8,(LPARAM)&rc); 
-hwnd_net_card_text=CreateWindowEx(0, TEXT("static"), TEXT("NIC in use")
+    hwnd_net_card_text=CreateWindowEx(0, TEXT("static"), TEXT("NIC")
         , WS_CHILD | WS_VISIBLE | SS_CENTER | SS_CENTERIMAGE
         , rc.left, rc.top, 2*(rc.right-rc.left), rc.bottom-rc.top,
             hwnd_toolbar, (HMENU)NULL, g_hInstance, NULL);
@@ -220,8 +162,8 @@ hwnd_net_card_text=CreateWindowEx(0, TEXT("static"), TEXT("NIC in use")
         , WS_CHILD | WS_VISIBLE | CBS_DROPDOWNLIST|CBS_DISABLENOSCROLL|WS_VSCROLL
         , rc.left+2*(rc.right-rc.left)+8, rc.top, (rc.right-rc.left)*6, 250,
             hwnd_toolbar, (HMENU)NULL, g_hInstance, NULL);
-SendMessage(hwnd_net_card_text, WM_SETFONT, (WPARAM)char_font_2, 0);
-SendMessage(hwnd_net_card_comb, WM_SETFONT, (WPARAM)char_font_2, 0);
+    SendMessage(hwnd_net_card_text, WM_SETFONT, (WPARAM)char_font_2, 0);
+    SendMessage(hwnd_net_card_comb, WM_SETFONT, (WPARAM)char_font_2, 0);
 
     rx_tx_init();
     init_net_card_combbox(hwnd_net_card_comb);
@@ -229,7 +171,6 @@ SendMessage(hwnd_net_card_comb, WM_SETFONT, (WPARAM)char_font_2, 0);
     old_tb_proc = (WNDPROC) SetWindowLong (hwnd_toolbar, 
                                  	GWLP_WNDPROC, (LONG) my_tb_proc) ;
 
-    }
     return SUCCESS;
 }
 
@@ -251,7 +192,7 @@ void update_statusbar()
         _stprintf(info, TEXT("capture while TX: %s"),TEXT("disabled")) ;
     else
         _stprintf(info, TEXT("capture while TX: enabled(captue mode:%s)"), 
-        gt_pkt_cap_cfg.need_save_capture?TEXT("save packets"):TEXT("statistic only")) ;
+    gt_pkt_cap_cfg.need_save_capture?TEXT("save packets"):TEXT("statistic only")) ;
     SendMessage(hwnd_statusbar, SB_SETTEXT,3, (LPARAM)info);
 
 }

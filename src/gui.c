@@ -51,7 +51,7 @@ HFONT  create_font(int height, TCHAR *font_name, int use_black)
 
     if (use_black)
         lf.lfWeight  = FW_BLACK;
-dbg_print("font height: %d", height);
+    dbg_print("font name: %s, height: %d", font_name, height);
     if (NULL != font_name)
         strcpy(lf.lfFaceName, font_name);
     
@@ -80,12 +80,12 @@ void init_gui_info()
 {
     get_sys_gui_info();
     if (scrn_width==1440 && scrn_height==900)
-        char_font = create_font(gt_gui_size_scale_ref.cyChar*WIDTH_COEFFICIENT, "Fixedsys", 0);
+        char_font = create_font(gt_gui_size_scale_ref.cyChar*WIDTH_COEFFICIENT*7/8, "Fixedsys", 0);
     else
-        char_font = create_font(gt_gui_size_scale_ref.cyChar*WIDTH_COEFFICIENT, "Courier New", 1);
-    char_font_2 = create_font(gt_gui_size_scale_ref.cyChar*7/6*WIDTH_COEFFICIENT, TEXT("Courier New"), 1);
+        char_font = create_font(gt_gui_size_scale_ref.cyChar*WIDTH_COEFFICIENT*7/8, "ËÎÌו", 1);
+    char_font_2 = create_font(gt_gui_size_scale_ref.cyChar*7/8*WIDTH_COEFFICIENT, TEXT("ËÎÌו"), 1);
     char_font_25 = create_font(25, TEXT("Courier New"), 0);
-   fixedsys_font = create_font(0, "Fixedsys", 0);
+    fixedsys_font = create_font(0, "Fixedsys", 0);
     get_font_size(char_font, &cxChar, &cyChar);
     get_font_size(char_font_2, &cxChar_2, &cyChar_2);
     dbg_print("Char size: %d %d", cxChar, cyChar);
