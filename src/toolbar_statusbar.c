@@ -227,7 +227,7 @@ SendMessage(hwnd_net_card_comb, WM_SETFONT, (WPARAM)char_font_2, 0);
     init_net_card_combbox(hwnd_net_card_comb);
 
     old_tb_proc = (WNDPROC) SetWindowLong (hwnd_toolbar, 
-                                 	GWL_WNDPROC, (LONG) my_tb_proc) ;
+                                 	GWLP_WNDPROC, (LONG) my_tb_proc) ;
 
     }
     return SUCCESS;

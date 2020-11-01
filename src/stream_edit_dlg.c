@@ -2471,7 +2471,7 @@ BOOL CALLBACK StreamEditDlgProc (HWND hDlg, UINT message,WPARAM wParam, LPARAM l
                 center_child_win(hwnd_frame, hDlg);
 
                 old_tv_proc = (WNDPROC) SetWindowLong (hwnd_tree, 
-                                 	GWL_WNDPROC, (LONG) my_tv_proc) ;
+                                 	GWLP_WNDPROC, (LONG) my_tv_proc) ;
                 hide_edit_ui(hDlg);
                 
                 InitDlgFromStream(hDlg, &gt_edit_stream);
@@ -3082,7 +3082,7 @@ BOOL CALLBACK PktViewDlgProc(HWND hDlg, UINT message,WPARAM wParam, LPARAM lPara
                 center_child_win(hwnd_frame, hDlg);
                 SetFocus(GetDlgItem(hDlg,ID_VIEW_STREAM_TREE_VIEW));
             old_lv_proc = (WNDPROC) SetWindowLong (hlv, 
-                                 	GWL_WNDPROC, (LONG)my_lv_proc) ;
+                                 	GWLP_WNDPROC, (LONG)my_lv_proc) ;
 
                 gt_edit_stream.len=0;
                 hex_win_reinit(GetDlgItem(hDlg,ID_VIEW_STREAM_HEX_EDIT));

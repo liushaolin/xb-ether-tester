@@ -747,7 +747,7 @@ LRESULT CALLBACK stream_WndProc (HWND hwnd, UINT message, WPARAM wParam, LPARAM 
             InitListViewColumns(hwnd_lv);
             lv_row_color_init();
             old_lv_proc = (WNDPROC) SetWindowLong (hwnd_lv, 
-                                 	GWL_WNDPROC, (LONG)my_lv_proc) ;
+                                 	GWLP_WNDPROC, (LONG)my_lv_proc) ;
 
             ShowWindow(hwnd_lv, 1) ;
             refresh_window(hwnd_lv) ;

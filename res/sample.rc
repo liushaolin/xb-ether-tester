@@ -10,6 +10,7 @@
 
 #include "res.h"
 #include <windows.h>
+#include <commctrl.h>
 // this minimal resource file is all what is needed for most of the wxWindows
 // samples
 

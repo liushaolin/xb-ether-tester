@@ -21,10 +21,11 @@ CFLAG := $(CFLAG) -fno-strict-aliasing
 PRJ_DIR:=.
 RES_DIR := $(PRJ_DIR)\res
 INC_RES_DIRS := --include-dir $(RES_DIR)
-INC_DIRS := -I$(PRJ_DIR)\inc -I$(RES_DIR)
+INC_DIRS := -I$(PRJ_DIR)\inc -I$(PRJ_DIR)\WpdPack\Include -I$(RES_DIR)
 OBJ_DIR:=$(PRJ_DIR)\obj
 
 CFLAG := $(CFLAG) $(INC_DIRS)
+LDFLAG := -L$(PRJ_DIR)\WpdPack\Lib $(LDFLAG)
 WINDRES_FLAG := --use-temp-file $(INC_RES_DIRS)
 
 # -------------------------------------------------------------------------
@@ -58,7 +59,7 @@ OBJECTS :=  \
 
 ### Targets: ###
 
-default: prepare  clean  $(target)
+default: $(target)
 
 
 $(target): $(OBJECTS)
