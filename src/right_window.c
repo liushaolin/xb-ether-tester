@@ -1,11 +1,11 @@
 /* 
- * ������Ϊ��ѡ���Դ������
- * �������İ�Ȩ(����Դ�뼰�����Ʒ����汾)��һ�й������С�
- * ����������ʹ�á�������������
- * ��Ҳ�������κ���ʽ���κ�Ŀ��ʹ�ñ�����(����Դ�뼰�����Ʒ����汾)���������κΰ�Ȩ���ơ�
+ * 本软件为免费、开源软件。
+ * 本软件的版权(包括源码及二进制发布版本)归一切公众所有。
+ * 您可以自由使用、传播本软件。
+ * 您也可以以任何形式、任何目的使用本软件(包括源码及二进制发布版本)，而不受任何版权限制。
  * =====================
- * ����: ������
- * ����: sunmingbao@126.com
+ * 作者: 孙明保
+ * 邮箱: sunmingbao@126.com
  */
 
 #include <windows.h>
@@ -188,7 +188,7 @@ BOOL InsertListViewItems(HWND hWndListView, int cItems)
         lvI.mask      = LVIF_TEXT|LVIF_IMAGE;
 
         lvI.pszText   = TEXT("");;
-        lvI.iImage = -1; /* ����ҪͼƬ��������Ϊ-1 */
+        lvI.iImage = -1; /* 若不要图片，就设置为-1 */
 
         // Insert items into the list.
         if (ListView_InsertItem(hWndListView, &lvI) == -1)
@@ -200,7 +200,7 @@ BOOL InsertListViewItems(HWND hWndListView, int cItems)
         lvI.mask      = LVIF_TEXT;
         lvI.pszText   = TEXT("");
         //lvI.pszText   = NULL;
-        lvI.iImage = -1; /* ����ҪͼƬ��������Ϊ-1 */
+        lvI.iImage = -1; /* 若不要图片，就设置为-1 */
         ListView_SetItem(hWndListView, &lvI);
 
         lvI.iItem  = index;
@@ -209,7 +209,7 @@ BOOL InsertListViewItems(HWND hWndListView, int cItems)
         lvI.mask      = LVIF_TEXT|LVIF_IMAGE;
         lvI.pszText   = TEXT(" ");
         //lvI.pszText   = NULL;
-        lvI.iImage = 0; /* ����ҪͼƬ��������Ϊ-1 */
+        lvI.iImage = 0; /* 若不要图片，就设置为-1 */
         ListView_SetItem(hWndListView, &lvI);
 
         for (iCol = 3; iCol < ARRAY_SIZE(col_names); iCol++)
@@ -238,7 +238,7 @@ BOOL InsertItemFromStream(HWND hWndListView, t_stream* pt_stream)
         lvI.mask      = LVIF_TEXT|LVIF_IMAGE;
 
         lvI.pszText   = TEXT(" ");
-        lvI.iImage = -1; /* ����ҪͼƬ��������Ϊ-1 */
+        lvI.iImage = -1; /* 若不要图片，就设置为-1 */
 
         // Insert items into the list.
         if (ListView_InsertItem(hWndListView, &lvI) == -1)
@@ -253,7 +253,7 @@ BOOL InsertItemFromStream(HWND hWndListView, t_stream* pt_stream)
         lvI.mask      = LVIF_TEXT|LVIF_IMAGE;
         lvI.pszText   = TEXT(" ");
         //lvI.pszText   = NULL;
-        lvI.iImage = -1; /* ����ҪͼƬ��������Ϊ-1 */
+        lvI.iImage = -1; /* 若不要图片，就设置为-1 */
         ListView_SetItem(hWndListView, &lvI);
 #if 0
         lvI.iItem  = index;
@@ -262,7 +262,7 @@ BOOL InsertItemFromStream(HWND hWndListView, t_stream* pt_stream)
         lvI.mask      = LVIF_TEXT|LVIF_IMAGE;
         lvI.pszText   = TEXT(" ");
         //lvI.pszText   = NULL;
-        lvI.iImage = -1; /* ����ҪͼƬ��������Ϊ-1 */
+        lvI.iImage = -1; /* 若不要图片，就设置为-1 */
         ListView_SetItem(hWndListView, &lvI);
 
 #else

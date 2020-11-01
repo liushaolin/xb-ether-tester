@@ -1,11 +1,11 @@
 /* 
- * ±¾Èí¼þÎªÃâ·Ñ¡¢¿ªÔ´Èí¼þ¡£
- * ±¾Èí¼þµÄ°æÈ¨(°üÀ¨Ô´Âë¼°¶þ½øÖÆ·¢²¼°æ±¾)¹éÒ»ÇÐ¹«ÖÚËùÓÐ¡£
- * Äú¿ÉÒÔ×ÔÓÉÊ¹ÓÃ¡¢´«²¥±¾Èí¼þ¡£
- * ÄúÒ²¿ÉÒÔÒÔÈÎºÎÐÎÊ½¡¢ÈÎºÎÄ¿µÄÊ¹ÓÃ±¾Èí¼þ(°üÀ¨Ô´Âë¼°¶þ½øÖÆ·¢²¼°æ±¾)£¬¶ø²»ÊÜÈÎºÎ°æÈ¨ÏÞÖÆ¡£
+ * æœ¬è½¯ä»¶ä¸ºå…è´¹ã€å¼€æºè½¯ä»¶ã€‚
+ * æœ¬è½¯ä»¶çš„ç‰ˆæƒ(åŒ…æ‹¬æºç åŠäºŒè¿›åˆ¶å‘å¸ƒç‰ˆæœ¬)å½’ä¸€åˆ‡å…¬ä¼—æ‰€æœ‰ã€‚
+ * æ‚¨å¯ä»¥è‡ªç”±ä½¿ç”¨ã€ä¼ æ’­æœ¬è½¯ä»¶ã€‚
+ * æ‚¨ä¹Ÿå¯ä»¥ä»¥ä»»ä½•å½¢å¼ã€ä»»ä½•ç›®çš„ä½¿ç”¨æœ¬è½¯ä»¶(åŒ…æ‹¬æºç åŠäºŒè¿›åˆ¶å‘å¸ƒç‰ˆæœ¬)ï¼Œè€Œä¸å—ä»»ä½•ç‰ˆæƒé™åˆ¶ã€‚
  * =====================
- * ×÷Õß: ËïÃ÷±£
- * ÓÊÏä: sunmingbao@126.com
+ * ä½œè€…: å­™æ˜Žä¿
+ * é‚®ç®±: sunmingbao@126.com
  */
 #include <windows.h>
 #include "common.h"
@@ -143,7 +143,7 @@ int CreateToolbar()
     SendMessage(hwnd_toolbar,TB_SETDISABLEDIMAGELIST,0,(LPARAM)h1);
 
 
-    //½«°´Å¥Óë¹¤¾ßÀ¸¹ØÁª
+    //å°†æŒ‰é’®ä¸Žå·¥å…·æ å…³è”
     SendMessage(hwnd_toolbar, TB_BUTTONSTRUCTSIZE, (WPARAM)sizeof(TBBUTTON), 0);
     SendMessage(hwnd_toolbar, TB_ADDBUTTONS, ARRAY_SIZE(at_button), (LPARAM)at_button);
     SendMessage(hwnd_toolbar, TB_SETMAXTEXTROWS, 0, 0);

@@ -1,11 +1,11 @@
 /* 
- * ±¾Èí¼şÎªÃâ·Ñ¡¢¿ªÔ´Èí¼ş¡£
- * ±¾Èí¼şµÄ°æÈ¨(°üÀ¨Ô´Âë¼°¶ş½øÖÆ·¢²¼°æ±¾)¹éÒ»ÇĞ¹«ÖÚËùÓĞ¡£
- * Äú¿ÉÒÔ×ÔÓÉÊ¹ÓÃ¡¢´«²¥±¾Èí¼ş¡£
- * ÄúÒ²¿ÉÒÔÒÔÈÎºÎĞÎÊ½¡¢ÈÎºÎÄ¿µÄÊ¹ÓÃ±¾Èí¼ş(°üÀ¨Ô´Âë¼°¶ş½øÖÆ·¢²¼°æ±¾)£¬¶ø²»ÊÜÈÎºÎ°æÈ¨ÏŞÖÆ¡£
+ * æœ¬è½¯ä»¶ä¸ºå…è´¹ã€å¼€æºè½¯ä»¶ã€‚
+ * æœ¬è½¯ä»¶çš„ç‰ˆæƒ(åŒ…æ‹¬æºç åŠäºŒè¿›åˆ¶å‘å¸ƒç‰ˆæœ¬)å½’ä¸€åˆ‡å…¬ä¼—æ‰€æœ‰ã€‚
+ * æ‚¨å¯ä»¥è‡ªç”±ä½¿ç”¨ã€ä¼ æ’­æœ¬è½¯ä»¶ã€‚
+ * æ‚¨ä¹Ÿå¯ä»¥ä»¥ä»»ä½•å½¢å¼ã€ä»»ä½•ç›®çš„ä½¿ç”¨æœ¬è½¯ä»¶(åŒ…æ‹¬æºç åŠäºŒè¿›åˆ¶å‘å¸ƒç‰ˆæœ¬)ï¼Œè€Œä¸å—ä»»ä½•ç‰ˆæƒé™åˆ¶ã€‚
  * =====================
- * ×÷Õß: ËïÃ÷±£
- * ÓÊÏä: sunmingbao@126.com
+ * ä½œè€…: å­™æ˜ä¿
+ * é‚®ç®±: sunmingbao@126.com
  */
 
 #include <windows.h>
@@ -44,7 +44,7 @@ HFONT  create_font(int height, TCHAR *font_name, int use_black)
     memset(&lf, 0, sizeof(lf));
     lf.lfCharSet = 1;
 
-    /* font_nameÈç¹ûÊÇFixedsys£¬height²»Æğ×÷ÓÃ */
+    /* font_nameå¦‚æœæ˜¯Fixedsysï¼Œheightä¸èµ·ä½œç”¨ */
     lf.lfHeight = height;
     
     lf.lfPitchAndFamily = FIXED_PITCH;
@@ -82,8 +82,8 @@ void init_gui_info()
     if (scrn_width==1440 && scrn_height==900)
         char_font = create_font(gt_gui_size_scale_ref.cyChar*WIDTH_COEFFICIENT*7/8, "Fixedsys", 0);
     else
-        char_font = create_font(gt_gui_size_scale_ref.cyChar*WIDTH_COEFFICIENT*7/8, "ËÎÌå", 1);
-    char_font_2 = create_font(gt_gui_size_scale_ref.cyChar*7/8*WIDTH_COEFFICIENT, TEXT("ËÎÌå"), 1);
+        char_font = create_font(gt_gui_size_scale_ref.cyChar*WIDTH_COEFFICIENT*7/8, "å®‹ä½“", 1);
+    char_font_2 = create_font(gt_gui_size_scale_ref.cyChar*7/8*WIDTH_COEFFICIENT, TEXT("å®‹ä½“"), 1);
     char_font_25 = create_font(25, TEXT("Courier New"), 0);
     fixedsys_font = create_font(0, "Fixedsys", 0);
     get_font_size(char_font, &cxChar, &cyChar);
